@@ -1,6 +1,6 @@
 # YOLOv3-Mobilenetv2
 
-## WIP:
+
 
 This is a Mobilenetv2 implementation of YOLOv3. Code is written with reference to https://github.com/eriklindernoren/PyTorch-YOLOv3, with modifications/corrections made. 
 
@@ -10,4 +10,4 @@ Current example uses trainvalno5k-Mod.part data list file (modified from https:/
 
 ![Alt text](Figure_1.png?raw=true " ")
 
-
+Will add more info
