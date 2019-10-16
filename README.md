@@ -10,4 +10,4 @@ Current example uses trainvalno5k-Mod.part data list file (modified from https:/
 
 ![Alt text](Figure_1.png?raw=true " ")
 
-More descriptions to come...
+
