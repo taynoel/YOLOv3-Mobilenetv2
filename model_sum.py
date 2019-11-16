@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from utils import build_targets
 from groupConv import InvertedResidual,conv_bn,conv_1x1_bn,_extendedLayers,_outputLayers
 
@@ -100,7 +101,6 @@ class objDetNet(nn.Module):
     def __init__(self,opt):
         super(objDetNet,self).__init__()
         self._opt=opt
-        _outLen=self._opt.numOfClass+5
         
         self.conv0=conv_bn(3, 32, 2)#416->208
         self.conv1=InvertedResidual(32,16,1,1)
@@ -114,23 +114,22 @@ class objDetNet(nn.Module):
         self.conv6=nn.Sequential(InvertedResidual(96,160,2,6),InvertedResidual(160,160,1,6)
                                 ,InvertedResidual(160,160,1,6))#26->13
         
-        
         self.convEx1=_extendedLayers(160,512)
-        self.convOt1=_outputLayers(512,_outLen*3)
+        self.convOt1=_outputLayers(512,85*3)
         
         self.convUp1=nn.Sequential(conv_1x1_bn(512, 256),nn.ConvTranspose2d(256,256,3,2,1,1,256))
         
         self.convEx2=_extendedLayers(320,256)
-        self.convOt2=_outputLayers(256,_outLen*3)
+        self.convOt2=_outputLayers(256,85*3)
         self.convUp2=nn.Sequential(conv_1x1_bn(256, 128),nn.ConvTranspose2d(128,128,3,2,1,1,128))
         
         self.convEx3=_extendedLayers(160,256)
-        self.convOt3=_outputLayers(256,_outLen*3)
+        self.convOt3=_outputLayers(256,85*3)
                 
                                                                      
-        self.yolo13=yoloOutputAndLoss([(116, 90), (156, 198), (373, 326)],self._opt.numOfClass,self._opt.imgSquareSize)
-        self.yolo26=yoloOutputAndLoss([(30, 61), (62, 45), (59, 119)],self._opt.numOfClass,self._opt.imgSquareSize)
-        self.yolo52=yoloOutputAndLoss([(10, 13), (16, 30), (33, 23)],self._opt.numOfClass,self._opt.imgSquareSize)
+        self.yolo13=yoloOutputAndLoss([(116, 90), (156, 198), (373, 326)],80,self._opt.imgSquareSize)
+        self.yolo26=yoloOutputAndLoss([(30, 61), (62, 45), (59, 119)],80,self._opt.imgSquareSize)
+        self.yolo52=yoloOutputAndLoss([(10, 13), (16, 30), (33, 23)],80,self._opt.imgSquareSize)
     
     
         
