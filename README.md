@@ -2,7 +2,7 @@
 
 
 
-This is a Mobilenetv2 implementation of YOLOv3. Code is written with reference to https://github.com/eriklindernoren/PyTorch-YOLOv3, with modifications/corrections made. 
+This is a MobileNet v2 training and implementation of YOLOv3. Code is written with reference to https://github.com/eriklindernoren/PyTorch-YOLOv3, with modifications/corrections made. 
 
 Change as required:
 
