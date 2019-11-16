@@ -1,10 +1,10 @@
 import cv2
+import torch
 import torch.nn.functional as F
 import numpy as np
-import torchvision.transforms as transforms
-from PIL import Image
+import random
+import time
 import matplotlib.pyplot as plt
-
 def showImgT_WH(imgT,mode=1):
     if mode==0:
         cv2.imshow("im",imgT.cpu().numpy())
@@ -39,9 +39,7 @@ def showImgNLab(imgT,labT,mode=1,scale=None):
             imgT[:,upY:downY,rightX:rightX+2].fill_(1.)
         plt.imshow(imgT.permute(1,2,0).cpu().numpy())
             
-def imgRead(fileName,imgSize):
-        img = transforms.ToTensor()(Image.open(fileName).convert('RGB'))
-        return imgTransformSingleImg(img,0,0.5,0.5,imgSize)[0]    
+        
         
 
 def frameIndicesForIntendedFps(startClip,numOfClips,intendedFrameRate, vidFrameRate):
