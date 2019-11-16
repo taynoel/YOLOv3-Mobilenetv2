@@ -18,6 +18,10 @@ class ListDataset(Dataset):
         self.labelDataList=[f.replace(".jpg",".txt") for f in filSt]
         self._len=len(filSt)
         self.randomize=True
+    
+    def imgRead(self,fileName):
+        img = transforms.ToTensor()(Image.open(fileName).convert('RGB'))
+        return imgUtils.imgTransformSingleImg(img,0,0.5,0.5,self._opt.imgSquareSize)[0]
         
         
     def __getitem__(self, index):
@@ -62,6 +66,10 @@ class ListDataset(Dataset):
         
     
     def collate_fn(self, batch):
+        """
+        <targets> is a list with number of samples per batch of elements.
+        column arrangement: sample index,class id,center_x,center_y,width,height
+        """
         imgs, targets = list(zip(*batch))
         for ind,val in enumerate(targets):
             if val is not None:
