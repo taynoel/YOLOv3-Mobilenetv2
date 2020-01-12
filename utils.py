@@ -150,7 +150,7 @@ def build_targets(pred_boxes, pred_cls, target, anchors, ignore_thres):
         # Width and height
         tw[b, best_n, gj, gi] = torch.log(gw / anchors[best_n][:, 0] + 1e-16)
         th[b, best_n, gj, gi] = torch.log(gh / anchors[best_n][:, 1] + 1e-16)
-        # One-hot encoding of label
+        # class label
         tcls[b, best_n, gj, gi, target_labels] = 1
         # Compute label correctness and iou at best anchor
         class_mask[b, best_n, gj, gi] = (pred_cls[b, best_n, gj, gi].argmax(-1) == target_labels).float()
